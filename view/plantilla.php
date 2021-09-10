@@ -66,7 +66,7 @@
 	?>
 <script>
 
-mostrarCarrito();
+	mostrarCarrito();
 	leerUser();
 	carrito = [];
 	cart =false;
@@ -519,10 +519,24 @@ mostrarCarrito();
 
 			}else{
 				console.log('mal datos');
+				// document.getElementById('alertaloginn').innerHTML = 'Mal Datos'
+				alertaHTML('error','Mal datosssss','alertaloginn')
+				
 			}
 		})
 	}
-
+	// product
+// error
+	function alertaHTML(tipo, mensaje, idSelect){
+		alerta = `<h3 class="agregado-${tipo}">
+			<strong>${mensaje}</strong>
+								</h3>`
+		document.getElementById(idSelect).innerHTML = alerta
+		setTimeout(() => {
+			document.getElementById(idSelect).innerHTML = ''
+			
+		}, 2000);
+	}
 	function leerUser(){
 		serverURL = '<?php echo SERVERURL ?>'
 		div = ''
@@ -706,11 +720,15 @@ mostrarCarrito();
 			})
 			.then(r => r.json())
 			.then(r => {
-				console.log(r);
+				if(r == 1){
+					alertaHTML('product','Registrado correctamente','alertaloginn')
+				}else{
+					alertaHTML('error','Tu correo ya esta registrado o intenta con otro correo','alertaloginn')
+				}
 			})
 			
 		}else{
-			document.getElementById('alertaloginn').innerHTML = `<div>CAMPOS VACIOS</div>`
+			alertaHTML('error','Campos vacios','alertaloginn')
 		}
 	}
 	window.addEventListener("keyup", function(event){

@@ -4,8 +4,7 @@
         <div class="modal-content modal--shadow">
 
             <button class="btn new-l__dismiss fas fa-times" type="button" data-dismiss="modal"></button>
-            <div class="modal-body">
-                <div id="alertaloginn" class="text-center"></div>
+            <div class="modal-body">                
                 
                 <div class="row u-s-m-x-0">
                     <div class="col-lg-6 new-l__col-2">
@@ -31,7 +30,13 @@
                                 </div>
                                 <div class="u-s-m-b-15">
 
-                                    <button class="btn btn--e-brand" type="submit" onclick="registrarseCliente()" >Registrarme!</button>
+                                    <button class="btn btn--e-brand" type="submit" onclick="registrarseCliente()" style="
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #21871a;
+    text-align: center;
+    width: 100%;
+" >Registrarme!</button>
                                 </div>
                             <!-- </form> -->
                         </div>
@@ -57,6 +62,12 @@
                         </div>
                     </div>
                 </div>
+                <div id="alertaloginn" class="text-center" style="
+    text-align: center;
+    
+    color: white;
+    margin: 5px;
+"></div>
             </div>
         </div>
     </div>

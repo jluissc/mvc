@@ -17,6 +17,14 @@
 			return $sql;
 		}
 
+		protected static function consultaUser($user){
+			
+			$sql = mainModel::conexion() -> prepare("SELECT * FROM cliente WHERE cli_user = :user ");			
+			$sql->bindParam(":user",$user);
+			$sql -> execute();
+			return $sql;
+		}
+
 		protected static function traer_producto_id_M($id){
 			$sql = mainModel::conexion()->prepare("SELECT * FROM `producto` AS p
 				INNER JOIN categoria AS c
@@ -82,19 +90,25 @@
 			$sql = null;
 		}
 		protected static function registerCliente_M($datos){
-			$sql = mainModel::conexion() -> prepare("INSERT INTO cliente (cli_nombre, cli_user, cli_pass, cli_estado) 
-				VALUES( :nom_reg, :user_reg, :pass_reg, 1)");
 			
-			$sql->bindParam(":nom_reg",$datos['nom_reg']);
-			$sql->bindParam(":user_reg",$datos['user_reg']);
-			$sql->bindParam(":pass_reg",$datos['pass_reg']);
-			$sql -> execute();
-			if($sql -> rowCount() == 1){
-				exit(json_encode(1));
+			if(logueoModel::consultaUser($datos['user_reg'])->rowCount() == 1){
+				exit(json_encode(2));/* SE REPITE COREo */
 			}else{
-				exit(json_encode(0));
+
+				$sql = mainModel::conexion() -> prepare("INSERT INTO cliente (cli_nombre, cli_user, cli_pass, cli_estado) 
+					VALUES( :nom_reg, :user_reg, :pass_reg, 1)");
+			
+				$sql->bindParam(":nom_reg",$datos['nom_reg']);
+				$sql->bindParam(":user_reg",$datos['user_reg']);
+				$sql->bindParam(":pass_reg",$datos['pass_reg']);
+				$sql -> execute();
+				if($sql -> rowCount() == 1){
+					exit(json_encode(1));
+				}else{
+					exit(json_encode(0));
+				}
+				$sql = null;
 			}
-			$sql = null;
 		}
 
 
